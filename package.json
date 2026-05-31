@@ -1,45 +1,30 @@
 {
-  "name": "echo-flow-ai",
-  "main": "expo-router/entry",
+  "name": "echo-flow-ai-monorepo",
   "version": "1.0.0",
+  "description": "Monorepo for EchoFlow AI mobile client and backend proxy server",
+  "private": true,
   "scripts": {
-    "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "lint": "expo lint"
-  },
-  "dependencies": {
-    "@react-navigation/bottom-tabs": "^7.15.5",
-    "@react-navigation/elements": "^2.9.10",
-    "@react-navigation/native": "^7.1.33",
-    "expo": "~55.0.26",
-    "expo-constants": "~55.0.16",
-    "expo-device": "~55.0.17",
-    "expo-font": "~55.0.8",
-    "expo-glass-effect": "~55.0.11",
-    "expo-image": "~55.0.11",
-    "expo-linking": "~55.0.15",
-    "expo-router": "~55.0.16",
-    "expo-splash-screen": "~55.0.21",
-    "expo-status-bar": "~55.0.6",
-    "expo-symbols": "~55.0.9",
-    "expo-system-ui": "~55.0.18",
-    "expo-web-browser": "~55.0.16",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "react-native": "0.83.6",
-    "react-native-gesture-handler": "~2.30.0",
-    "react-native-worklets": "0.7.4",
-    "react-native-reanimated": "4.2.1",
-    "react-native-safe-area-context": "~5.6.2",
-    "react-native-screens": "~4.23.0",
-    "react-native-web": "~0.21.0"
+    "install:all": "npm install --prefix mobile && npm install --prefix server",
+    "start:mobile": "npm run start --prefix mobile",
+    "android:mobile": "npm run android --prefix mobile",
+    "ios:mobile": "npm run ios --prefix mobile",
+    "web:mobile": "npm run web --prefix mobile",
+    "start:server": "npm run dev --prefix server",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "@types/react": "~19.2.2",
-    "typescript": "~5.9.2"
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0"
   },
-  "private": true
+  "lint-staged": {
+    "server/**/*.js": [
+      "npm run lint:fix --prefix server",
+      "npm run formate:fix --prefix server"
+    ],
+    "mobile/**/*.{ts,tsx}": [
+      "npm run lint --prefix mobile"
+    ]
+  }
 }

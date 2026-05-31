@@ -1,0 +1,63 @@
+# EchoFlow AI - Monorepo AI Context Rules
+
+This file guides all AI agents (Antigravity, Cursor, Claude Code) working on the EchoFlow AI monorepo.
+
+---
+
+## 1. General Behavioral Guidelines
+
+### 1.1 Think Before Coding
+* Don't assume. Don't hide confusion. Surface tradeoffs.
+* State assumptions explicitly. If uncertain, ask.
+* If multiple interpretations exist, present them - don't pick silently.
+* If a simpler approach exists, say so. Push back when warranted.
+
+### 1.2 Simplicity First
+* Minimum code that solves the problem. Nothing speculative.
+* No features beyond what was asked.
+* No abstractions for single-use code.
+* No "flexibility" or "configurability" that wasn't requested.
+* If you write 200 lines and it could be 50, rewrite it.
+
+### 1.3 Surgical Changes
+* Touch only what you must. Clean up only your own mess.
+* Match existing style, even if you'd do it differently.
+* Remove imports/variables/functions that your changes made unused.
+* Do not remove pre-existing dead code unless explicitly asked.
+
+### 1.4 Goal-Driven Execution
+* Define success criteria and verify.
+* Write check plans for multi-step tasks.
+
+---
+
+## 2. Mobile App Guidelines (React Native / Expo)
+
+* **Expo version**: Using Expo v55.0.0. Read the exact versioned docs at https://docs.expo.dev/versions/v55.0.0/ before writing code.
+* **Paths**: Ensure all path aliases resolve correctly relative to `mobile/tsconfig.json` (e.g. `@/*` maps to `mobile/src/*`).
+
+---
+
+## 3. Backend Proxy Guidelines (Node.js / Express)
+
+### 3.1 Stack & Environment
+* **Runtime**: Node.js (v22.15.0 LTS)
+* **Framework**: Express.js (v5.x)
+* **Database**: MongoDB via Mongoose (v9.x)
+* **Module System**: ES Modules (ESM, `"type": "module"`). Use `import`/`export` and append `.js` to local imports.
+
+### 3.2 Code Style & Rules
+* **No Console Logs**: Always use the Winston logger (`server/src/utils/logger.js`).
+* **Prettier Settings**:
+  * `tabWidth: 5`
+  * `semi: false`
+  * `singleQuote: true`
+  * `endOfLine: "crlf"`
+* **Errors & Responses**:
+  * Catch controller exceptions and call: `return httpError(next, err, req, 500)`
+  * To return a custom error, throw or pass a new Error:
+    ```javascript
+    return httpError(next, new Error("Error message"), req, 400)
+    ```
+  * Send success responses via `httpResponse(req, res, statusCode, message, data)`.
+  * Load environment variables via `dotenv-flow` and access them through `server/src/configs/config.js`.
