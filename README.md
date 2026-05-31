@@ -1,56 +1,63 @@
-# Welcome to your Expo app 👋
+# EchoFlow AI 🎙️📈
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+EchoFlow AI is an ultra-low-latency, voice-first English language learning platform designed to build speaking confidence and fluency. By replicating a real-time phone call environment, it prioritizes auditory-first interaction and utilizes a Bring Your Own Key (BYOK) financial framework for provider-direct scalability.
 
-## Get started
+---
 
-1. Install dependencies
+## 📁 Repository Structure
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+The workspace is organized as a monorepo containing the following applications:
 
 ```bash
-npm run reset-project
+echo-flow-ai/
+├── mobile/            # React Native Expo frontend client
+│   ├── src/           # Component, routing, state, and hook code
+│   └── assets/        # Visual and design system assets
+├── server/            # Node.js Express backend proxy server
+│   └── src/           # Database, router, controller, and logging setups
+├── .husky/            # Monorepo-wide pre-commit and commit-msg hooks
+└── package.json       # Monorepo root configuration and runner scripts
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-### Other setup steps
+## 🛠️ Prerequisites
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Ensure you have the following installed on your local environment:
+* **Node.js**: `v22.x` (LTS recommended)
+* **npm**: `v10.x` or higher
+* **MongoDB**: Running locally on `mongodb://localhost:27017` (required for backend proxy logging and rate limiting)
+* **Expo Go** or an emulator (Android Studio / Xcode iOS Simulator) for running the client application
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## 🚀 Getting Started
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 1. Install Dependencies
+Run the command below at the monorepo root to install packages in the root, `mobile`, and `server` subdirectories:
+```bash
+npm run install:all
+```
 
-## Join the community
+### 2. Run the Applications
+You can run the mobile client and backend proxy simultaneously or independently from the workspace root:
 
-Join our community of developers creating universal apps.
+* **Start the Mobile Client**:
+  ```bash
+  npm run start:mobile
+  ```
+  *(Press `a` for Android, `i` for iOS, or `w` for Web build)*
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+* **Start the Backend Server**:
+  ```bash
+  npm run start:server
+  ```
+  *(Launches the Express app under `nodemon` on http://localhost:3000)*
+
+---
+
+## 🔍 Validation & Linting
+
+We enforce codebase checks and commit validation locally using Husky:
+* **Staged linting**: File commits trigger `expo lint` on `mobile` changes and ESLint/Prettier code formatting on `server` changes.
+* **Commit Messages**: Commits are validated with Commitlint and must follow the Conventional Commits format (e.g. `feat: Add sqlite storage`).
